@@ -5,6 +5,6 @@ python:
   - 3.3
   - pypy
 install:
-  - python setup.py dev
+  - pip install -e .[test]
 script:
   - make test -k
