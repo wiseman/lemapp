@@ -6,5 +6,6 @@ python:
   - pypy
 install:
   - pip install -e .[test]
+  - pip install nose coverage
 script:
-  - make test -k
+  - nosetests
