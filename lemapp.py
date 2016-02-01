@@ -6,7 +6,7 @@ import sys
 
 import gflags
 
-__version__ = pkg_resources.get_distribution('luis').version
+__version__ = pkg_resources.get_distribution('lemapp').version
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string(
