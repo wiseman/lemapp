@@ -12,7 +12,7 @@ def read(*rnames):
 
 setup(
     name='lemapp',
-    version='0.3',
+    version='0.4.dev0',
     description='lemonodor Google-alike app framework.',
     long_description=(read('README.rst') +
                       read('HISTORY.rst') +
