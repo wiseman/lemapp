@@ -1,10 +1,12 @@
 """Lemapp, the lemonodor Google-alike app framework."""
 
 import logging
+import pkg_resources
 import sys
 
 import gflags
 
+__version__ = pkg_resources.get_distribution('luis').version
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string(
