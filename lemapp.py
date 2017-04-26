@@ -1,5 +1,5 @@
 """Lemapp, the lemonodor Google-alike app framework."""
-
+from __future__ import print_function
 import logging
 import pkg_resources
 import sys
@@ -40,7 +40,7 @@ def print_usage():
     else:
         usage_doc = usage_doc.replace('%s', sys.argv[0])
     usage_doc += '\nFlags:\n%s' % (FLAGS,)
-    print usage_doc
+    print(usage_doc)
 
 
 class AppError(Exception):
@@ -120,7 +120,7 @@ class App(object):
         try:
             FLAGS.UseGnuGetOpt()
             argv = FLAGS(argv)
-        except gflags.FlagsError, e:
+        except gflags.FlagsError as e:
             error('%s', e)
             print_usage()
             sys.exit(2)
