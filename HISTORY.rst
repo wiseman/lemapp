@@ -2,7 +2,7 @@ Changelog
 =========
     
 
-0.5 (unreleased)
+0.5 (2017-06-06)
 ----------------
 
 - Nothing changed yet.
