@@ -1,5 +1,10 @@
-"""Lemapp, the lemonodor Google-alike app framework."""
+"""Lemapp, the lemonodor Google-alike app framework.
 
+The default flags that all apps support are --logging_level,
+--profile, and --profile_output.
+"""
+from __future__ import print_function
+import cProfile
 import logging
 import pkg_resources
 import sys
@@ -17,6 +22,12 @@ gflags.DEFINE_string(
     'logging_filename',
     None,
     'Filename to write log output to.')
+gflags.DEFINE_bool(
+  'profile', False,
+  'Profile the application.')
+gflags.DEFINE_string(
+  'profile_output', None,
+  'The file to save profiling stats to.')
 
 
 def error(msg, *args):
@@ -40,7 +51,7 @@ def print_usage():
     else:
         usage_doc = usage_doc.replace('%s', sys.argv[0])
     usage_doc += '\nFlags:\n%s' % (FLAGS,)
-    print usage_doc
+    print(usage_doc)
 
 
 class AppError(Exception):
@@ -120,7 +131,7 @@ class App(object):
         try:
             FLAGS.UseGnuGetOpt()
             argv = FLAGS(argv)
-        except gflags.FlagsError, e:
+        except gflags.FlagsError as e:
             error('%s', e)
             print_usage()
             sys.exit(2)
@@ -128,7 +139,16 @@ class App(object):
         self.configure()
 
         try:
-            self.main(argv)
+            if not FLAGS.profile:
+                self.main(argv)
+            else:
+                local_syms = {
+                    'self': self,
+                    'argv': argv
+                }
+                cProfile.runctx(
+                    'self.main(argv)', {}, local_syms, FLAGS.profile_output)
+
         except AppError as e:
             error(str(e))
             sys.exit(1)
